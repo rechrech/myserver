@@ -5,32 +5,28 @@
     <title>My App</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
     <script>
-        // Go fetch the changing URL from your iCloud file
-        // Note: For security/browsing restrictions, we fetch the URL text directly
         async function redirectToServer() {
             try {
-                // We will point this to a place your Mac can upload text to, 
-                // but a simple trick is to have your Mac script push the URL straight to GitHub!
-                const response = await fetch('https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/myserver/main/url.txt');
+                // Reads the live tunnel address from the public bucket instantly
+                const response = await fetch('https://kvdb.io/MN87yTq9Jq7qN6B4cZ8v8A/tunnel_url');
                 const targetURL = await response.text();
                 if (targetURL.startsWith('https://')) {
                     window.location.replace(targetURL.trim());
                 } else {
-                    document.body.innerHTML = "Waiting for Mac server to start...";
+                    document.body.innerHTML = "<h2>Waiting for Mac server to start...</h2>";
                 }
             } catch (err) {
-                document.body.innerHTML = "Error connecting to server log.";
+                document.body.innerHTML = "<h2>Error connecting to server log.</h2>";
             }
         }
         window.onload = redirectToServer;
     </script>
     <style>
-        body { background: #000; color: #fff; font-family: sans-serif; text-align: center; padding-top: 40%; }
+        body { background: #121212; color: #fff; font-family: -apple-system, sans-serif; text-align: center; padding-top: 40%; }
     </style>
 </head>
 <body>
-    Connecting to your Mac...
+    <p>Connecting to your Mac Server...</p>
 </body>
 </html>
